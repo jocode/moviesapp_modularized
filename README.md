@@ -39,3 +39,44 @@ Version Catalog `libs.version.toml` is a file that contains all the versions of 
     - **libraries**: In the libraries block, define your dependencies.
     - **plugins**: In the plugins block, define your plugins.
     - **bundles**: In the bundles block, define your dependency bundles, which are groups of dependencies that you can import together.
+
+## 3. Creating our project structure
+
+It's created the base structure for the application. This application will be divided in multiple modules. Each module represents a feature in our app and it will have its own layers (data, domain, presentation).
+
+Also, we will have a `core` module that will contain all the common code that we will use in our app.
+
+- Each module will be created using the `New Module` option in Android Studio and the option `Android Library`.
+- The convention for the name of the modules is the following: `:feature:layer`. For example, `:movies:data`.
+- The package name for each module will be the following: 
+  - `com.feature._featureName_._layer_`. For example, `com.feature.movies.data`
+  - `com.feature._featureName_._layer_`. For example, `com.feature.movies.domain`
+  - `com.feature._featureName_._layer_`. For example, `com.feature.movies.ui`
+  - `com.feature._featureName_._layer_`. For example, `com.feature.movie_detail.data`
+  - `com.feature._featureName_._layer_`. For example, `com.feature.movie_detail.domain`
+  - `com.feature._featureName_._layer_`. For example, `com.feature.movie_detail.ui`
+
+
+- For `core` module the convention for the name of the modules is the following: `:core:moduleName`. For example, `:core:network`.
+- For the `core` module, the package name will be the following:
+    - `com.core._layer_`. For example, `com.core.network`
+    - `com.core._layer_`. For example, `com.core.common`
+
+
+```
+    :app/
+    :buildSrc/
+    :core/
+    ├── :common/
+    ├── :network/
+    ├── :feature_api/
+    :feature/
+    ├── :movie
+    │   ├── :data
+    │   ├── :domain
+    │   └── :ui
+    └── :movie_detail
+        ├── :data
+        ├── :domain
+        └── :ui
+```

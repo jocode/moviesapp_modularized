@@ -8,6 +8,8 @@ kotlin = "1.8.10"
 androidGradlePlugin = "8.1.0"
 lifecycleRuntimeKtx = "2.6.1"
 composeBom  = "2023.06.01"
+appcompat = "1.6.1"
+material = "1.9.0"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -30,10 +32,13 @@ compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 # Debug implementation
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+com-android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 
 [bundles]
 compose = [
