@@ -1,6 +1,7 @@
 package com.core.network.di
 
 import com.core.network.ApiService
+import com.core.network.dataproviders.MovieDataProviders
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +38,13 @@ object NetworkModule {
         retrofit: Retrofit
     ): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    fun provideMovieDataProviders(
+        apiService: ApiService
+    ): MovieDataProviders {
+        return MovieDataProviders(apiService)
     }
 
 }

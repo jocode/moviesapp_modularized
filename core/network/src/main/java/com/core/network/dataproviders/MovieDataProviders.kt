@@ -2,9 +2,8 @@ package com.core.network.dataproviders
 
 import com.core.network.ApiService
 import com.core.network.model.MovieListResponse
-import javax.inject.Inject
 
-class MovieDataProviders @Inject constructor(
+class MovieDataProviders(
     private val apiService: ApiService
 ) {
     suspend fun getMovieList(
