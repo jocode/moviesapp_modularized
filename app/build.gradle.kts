@@ -55,12 +55,17 @@ android {
 dependencies {
 
     implementation(project(":feature:movie:ui"))
+    implementation(project(":core:common"))
+    implementation(project(":core:feature_api"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
+
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.hilt.navigation.compose)
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
