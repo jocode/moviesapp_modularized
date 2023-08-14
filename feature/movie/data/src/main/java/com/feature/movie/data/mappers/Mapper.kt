@@ -8,8 +8,8 @@ fun MovieListResponse.toDomainMovieList() = results.map {
         id = it.id,
         title = it.title,
         overview = it.overview,
-        posterPath = it.posterPath,
-        backdropPath = it.backdropPath,
+        posterPath = it.posterPath.orEmpty().makeFullUrl(),
+        backdropPath = it.backdropPath.orEmpty(),
         voteAverage = it.voteAverage,
         releaseDate = it.releaseDate,
         popularity = it.popularity,
@@ -21,3 +21,5 @@ fun MovieListResponse.toDomainMovieList() = results.map {
         genreIds = it.genreIds,
     )
 }
+
+fun String.makeFullUrl() = "https://image.tmdb.org/t/p/w500/$this"

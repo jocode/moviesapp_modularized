@@ -4,32 +4,32 @@ package com.core.network.model
 import com.squareup.moshi.Json
 
 data class MovieDto(
-    @Json(name = "adult")
+    @field:Json(name = "adult")
     val adult: Boolean,
-    @Json(name = "backdrop_path")
-    val backdropPath: String,
-    @Json(name = "genre_ids")
+    @field:Json(name = "backdrop_path")
+    val backdropPath: String?,
+    @field:Json(name = "genre_ids")
     val genreIds: List<Int>,
-    @Json(name = "id")
+    @field:Json(name = "id")
     val id: Int,
-    @Json(name = "original_language")
+    @field:Json(name = "original_language")
     val originalLanguage: String,
-    @Json(name = "original_title")
+    @field:Json(name = "original_title")
     val originalTitle: String,
-    @Json(name = "overview")
+    @field:Json(name = "overview")
     val overview: String,
-    @Json(name = "popularity")
+    @field:Json(name = "popularity")
     val popularity: Double,
-    @Json(name = "poster_path")
-    val posterPath: String,
-    @Json(name = "release_date")
+    @field:Json(name = "poster_path")
+    val posterPath: String?,
+    @field:Json(name = "release_date")
     val releaseDate: String,
-    @Json(name = "title")
+    @field:Json(name = "title")
     val title: String,
-    @Json(name = "video")
+    @field:Json(name = "video")
     val video: Boolean,
-    @Json(name = "vote_average")
+    @field:Json(name = "vote_average")
     val voteAverage: Double,
-    @Json(name = "vote_count")
-    val voteCount: Int
+    @field:Json(name = "vote_count")
+    val voteCount: Int,
 )
