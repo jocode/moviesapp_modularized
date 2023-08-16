@@ -2,6 +2,7 @@ package com.example.moviesapp_modularized.di
 
 import com.example.moviesapp_modularized.navigation.NavigationProvider
 import com.feature.movie.ui.navigation.MovieApi
+import com.feature.movie_detail.ui.navigation.MovieDetailsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,9 +14,13 @@ object AppModule {
 
     @Provides
     fun provideNavigationProvider(
-        movieApi: MovieApi
+        movieApi: MovieApi,
+        movieDetailsApi: MovieDetailsApi,
     ): NavigationProvider = NavigationProvider(
-        movieApi = movieApi
+        movieApi = movieApi,
+        movieDetailsApi = movieDetailsApi
     )
+
+
 
 }

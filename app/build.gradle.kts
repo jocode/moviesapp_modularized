@@ -54,11 +54,15 @@ android {
 
 dependencies {
 
+    implementation(project(":core:common"))
+    implementation(project(":core:feature_api"))
+
     implementation(project(":feature:movie:data"))
     implementation(project(":feature:movie:domain"))
     implementation(project(":feature:movie:ui"))
-    implementation(project(":core:common"))
-    implementation(project(":core:feature_api"))
+    implementation(project(":feature:movie_detail:data"))
+    implementation(project(":feature:movie_detail:domain"))
+    implementation(project(":feature:movie_detail:ui"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -2,6 +2,7 @@ package com.feature.movie.ui.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,6 +32,7 @@ import com.feature.movie.domain.model.Movie
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun MovieScreen(
     viewModel: MovieSearchViewModel,
+    onNavigateToMovieDetailsScreen: (String) -> Unit,
 ) {
     val result = viewModel.movieList.value
     val query = viewModel.query.collectAsState()
@@ -83,7 +85,12 @@ fun MovieScreen(
                 contentPadding = paddingValues
             ) {
                 items(result.data) { movie ->
-                    MovieItem(movie = movie)
+                    MovieItem(
+                        modifier = Modifier.clickable {
+                            onNavigateToMovieDetailsScreen(movie.id.toString())
+                        },
+                        movie = movie
+                    )
                 }
             }
         } else {

@@ -23,6 +23,9 @@ internal object InternalMovieFeatureApi : FeatureApi {
                 val viewModel = hiltViewModel<MovieSearchViewModel>()
                 MovieScreen(
                     viewModel = viewModel,
+                    onNavigateToMovieDetailsScreen = {
+                        navController.navigate("movie_details/$it")
+                    }
                 )
             }
         }
