@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.feature.movie.domain.model.Movie
@@ -36,6 +37,8 @@ fun MovieScreen(
 ) {
     val result = viewModel.movieList.value
     val query = viewModel.query.collectAsState()
+
+    val focusManager = LocalFocusManager.current
 
 
     Scaffold(
@@ -80,6 +83,9 @@ fun MovieScreen(
         }
 
         if (result.data.isNotEmpty()) {
+            // Hide the keyboard when the list is shown
+            focusManager.clearFocus()
+
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = 128.dp),
                 contentPadding = paddingValues

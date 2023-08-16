@@ -26,13 +26,13 @@ class MovieDetailsViewModel @Inject constructor(
     init {
         savedStateHandle.getLiveData<String>("id").observeForever { id ->
             id?.let {
-                getMovieDetails(id, API_KEY)
+                getMovieDetails(id)
             }
         }
     }
 
-    private fun getMovieDetails(id: String, apiKey: String) {
-        getMovieDetailsUseCase(id, apiKey).onEach { event ->
+    private fun getMovieDetails(id: String) {
+        getMovieDetailsUseCase(id, API_KEY).onEach { event ->
             when (event) {
                 is UiEvent.Loading -> {
                     _movieDetails.value = MovieDetailsStateHolder(isLoading = true)

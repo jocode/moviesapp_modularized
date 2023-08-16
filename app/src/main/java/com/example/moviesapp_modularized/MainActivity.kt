@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App(navHostController: NavHostController, navigationProvider: NavigationProvider) {
     Moviesapp_modularizedTheme {
+        ScaffoldDefaults.contentWindowInsets // Fixes blank screen for Xiaomi devices
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
