@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.core.common.UiEvents
+import com.core.common.UiEvent
 import com.feature.movie.domain.use_cases.GetMovieListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,18 +37,18 @@ class MovieSearchViewModel @Inject constructor(
         }
     }
 
-    fun getMovieList(apiKey: String, query: String) = viewModelScope.launch {
+    private fun getMovieList(apiKey: String, query: String) = viewModelScope.launch {
         movieListUseCase(apiKey, query).onEach {
             when (it) {
-                is UiEvents.Loading -> {
+                is UiEvent.Loading -> {
                     _movieList.value = MovieSearchStateHolder(isLoading = true)
                 }
 
-                is UiEvents.Error -> {
+                is UiEvent.Error -> {
                     _movieList.value = MovieSearchStateHolder(error = it.message)
                 }
 
-                is UiEvents.Success -> {
+                is UiEvent.Success -> {
                     _movieList.value = MovieSearchStateHolder(data = it.data)
                 }
             }

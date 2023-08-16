@@ -1,6 +1,6 @@
 package com.feature.movie.domain.use_cases
 
-import com.core.common.UiEvents
+import com.core.common.UiEvent
 import com.feature.movie.domain.model.Movie
 import com.feature.movie.domain.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
@@ -12,11 +12,11 @@ class GetMovieListUseCase(
     private val movieRepository: MovieRepository
 ) {
 
-    operator fun invoke(apiKey: String, query: String) = flow<UiEvents<List<Movie>>> {
-        emit(UiEvents.Loading())
-        emit(UiEvents.Success(movieRepository.getMovieList(apiKey, query)))
+    operator fun invoke(apiKey: String, query: String) = flow<UiEvent<List<Movie>>> {
+        emit(UiEvent.Loading())
+        emit(UiEvent.Success(movieRepository.getMovieList(apiKey, query)))
     }.catch {
-        emit(UiEvents.Error(it.message ?: "Error"))
+        emit(UiEvent.Error(it.message ?: "Error"))
     }.flowOn(Dispatchers.IO)
 
 }

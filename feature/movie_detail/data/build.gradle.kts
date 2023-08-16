@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.kotlin.android)
+    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -34,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:network"))
+    implementation(project(":feature:movie_detail:domain"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.appcompat)
@@ -41,4 +45,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 }
