@@ -8,6 +8,12 @@ own layers (data, domain, presentation)**.
 |--------------------------|----------------------------------------|------------------------------------------|
 | ![Home](images/home.png) | ![Search List](images/home_search.png) | ![Movie Detail](images/movie_detail.png) |
 
+> **Requirements**
+> You need to create an account in [The Movie Database](https://www.themoviedb.org/) and get an API
+> key.
+> Then replace the value of `API_KEY` in the viewModel files.
+> [Settings API](https://www.themoviedb.org/settings/api)
+
 ## 1. Creating our `buildSrc` module
 
 The first step is to create a `buildSrc` module. This module will contain all the configuration that

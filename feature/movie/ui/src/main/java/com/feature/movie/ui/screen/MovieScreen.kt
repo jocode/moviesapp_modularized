@@ -99,13 +99,6 @@ fun MovieScreen(
                     )
                 }
             }
-        } else {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "No data")
-            }
         }
 
     }
