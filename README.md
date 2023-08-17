@@ -1,10 +1,18 @@
 # MoviesApp Modularized
 
-This is an example for a modularized architecture movies app. This modularization is based on feature layered modularization, that means that **each feature is a module and each module has its own layers (data, domain, presentation)**.
+This is an example for a modularized architecture movies app. This modularization is based on
+feature layered modularization, that means that **each feature is a module and each module has its
+own layers (data, domain, presentation)**.
+
+| Home                     | Search List                            | Movie Detail                             |
+|--------------------------|----------------------------------------|------------------------------------------|
+| ![Home](images/home.png) | ![Search List](images/home_search.png) | ![Movie Detail](images/movie_detail.png) |
 
 ## 1. Creating our `buildSrc` module
 
-The first step is to create a `buildSrc` module. This module will contain all the configuration that we will use in our project, like the version of the app. This module will be imported in our `build.gradle` file in the root of our project.
+The first step is to create a `buildSrc` module. This module will contain all the configuration that
+we will use in our project, like the version of the app. This module will be imported in
+our `build.gradle` file in the root of our project.
 
 - Change the view to `Project` in the Android Studio Project view.
 - Create a new directory called `buildSrc` in the root of the project.
@@ -79,4 +87,94 @@ Also, we will have a `core` module that will contain all the common code that we
         ├── :data
         ├── :domain
         └── :ui
+```
+
+## 4. Using `FeatureApi` to expose the feature modules
+
+The `feature_api` module will be used to expose the feature modules to the `app` module. This module
+will be used to inject the dependencies of the feature modules in the `app` module.
+
+```kotlin
+interface FeatureApi {
+
+  fun registerGraph(
+    navController: NavHostController,
+    navGraphBuilder: NavGraphBuilder
+  )
+
+}
+```
+
+Each feature module will implement this interface and will register its graph in the `app` module.
+
+```kotlin
+interface MovieApi : FeatureApi
+
+class MovieApiImpl : MovieApi {
+  override fun registerGraph(navController: NavHostController, navGraphBuilder: NavGraphBuilder) {
+    InternalMovieFeatureApi.registerGraph(navController, navGraphBuilder)
+  }
+
+}
+```
+
+```kotlin
+object InternalMovieDetailsApi : FeatureApi {
+  override fun registerGraph(navController: NavHostController, navGraphBuilder: NavGraphBuilder) {
+    navGraphBuilder.navigation(
+      startDestination = MovieDetailsFeature.movieDetailsScreenRoute,
+      route = MovieDetailsFeature.nestedRoute
+    ) {
+      composable(MovieDetailsFeature.movieDetailsScreenRoute) {
+        val id = it.arguments?.getString("id")
+        val viewModel = hiltViewModel<MovieDetailsViewModel>()
+        val state = viewModel.movieDetails.value
+
+        MovieDetailScreen(
+          state = state,
+          onNavigateUp = {
+            navController.navigateUp()
+          }
+        )
+      }
+    }
+  }
+}
+```
+
+The `app` module will have a `navigation` package that will contain the `AppNavigation.kt` file.
+This file will be used to register the navigation graph of the app.
+
+_AppNavigation.kt_
+
+```kotlin
+@Composable
+fun AppNavGraph(
+  navController: NavHostController,
+  navigationProvider: NavigationProvider
+) {
+  NavHost(
+    navController = navController,
+    startDestination = MovieFeature.nestedRoute
+  ) {
+    navigationProvider.movieApi.registerGraph(
+      navController = navController,
+      navGraphBuilder = this
+    )
+
+    navigationProvider.movieDetailsApi.registerGraph(
+      navController = navController,
+      navGraphBuilder = this
+    )
+  }
+}
+```
+
+_NavigationProvider_
+
+```kotlin
+data class NavigationProvider(
+  val movieApi: MovieApi,
+  val movieDetailsApi: MovieDetailsApi,
+)
 ```
